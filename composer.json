@@ -6,6 +6,13 @@
     "vlucas/phpdotenv": "^5.4",
     "ext-pdo": "*"
   },
+  "scripts": {
+    "command": [
+      "@php -r \"copy('.env.example','../../../.env');\"",
+      "@php -r \"copy('migrate','../../../migrate');\"",
+      "@php -r \"mkdir('../../../Database/Migrations',0777);\""
+    ]
+  },
   "require-dev": {
     "roave/security-advisories": "dev-latest"
   },
@@ -14,13 +21,6 @@
       "SimpleMigration\\": "src/",
       "SimpleMigration\\Database\\Migrations\\": "Database/Migrations/"
     }
-  },
-  "scripts": {
-    "command": [
-      "@php -r \"copy('.env.example','../../../.env');\"",
-      "@php -r \"copy('migrate','../../../migrate');\"",
-      "@php -r \"mkdir('../../../Database/Migrations',0777);\""
-    ]
   },
   "authors": [
     {
