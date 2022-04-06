@@ -3,7 +3,6 @@
   "description": "Simple Migration Application",
   "type": "simple",
   "require": {
-    "vlucas/phpdotenv": "^5.4",
     "ext-pdo": "*"
   },
   "require-dev": {
