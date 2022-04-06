@@ -1,8 +1,11 @@
 # Simple Migration Example
 
 
+### In simple applications for mysql, database tables can be created with the help of console.
+
 ### Installation
 #### `composer require migration/app`
+
 
 
 #### Edit ENV
