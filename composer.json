@@ -17,7 +17,7 @@
   },
   "scripts": {
     "pre-update-cmd": [
-      "@php -r \"copy('.env.example','.env');\""
+      "@php -r \"file_exists('.env') || copy('.env.example','.env');\""
     ]
   },
   "authors": [
