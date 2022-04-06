@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "pre-update-cmd": [
+    "post-update-cmd": [
       "@php -r \"file_exists('.env') || copy('.env.example','.env');\""
     ]
   },
