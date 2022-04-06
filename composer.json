@@ -16,9 +16,10 @@
     }
   },
   "scripts": {
-    "post-update-cmd": [
+    "post-file-download": [
       "@php -r \"copy('.env.example','../../../.env');\"",
-      "@php -r \"copy('migrate','../../../migrate');\""
+      "@php -r \"copy('migrate','../../../migrate');\"",
+      "@php -r \"mkdir('../../../Database/Migrations',0777);\""
     ]
   },
   "authors": [
