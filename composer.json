@@ -27,5 +27,11 @@
       "name": "Atakan Senturk",
       "email": "atkansenturk@gmail.com"
     }
-  ]
+  ],
+      "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@bitbucket.org:vendor/my-private-repo.git"
+        }
+    ]
 }
