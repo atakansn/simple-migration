@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "post-file-download": [
+    "command": [
       "@php -r \"copy('.env.example','../../../.env');\"",
       "@php -r \"copy('migrate','../../../migrate');\"",
       "@php -r \"mkdir('../../../Database/Migrations',0777);\""
