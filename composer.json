@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "post-root-package-install": [
+    "post-update-cmd": [
       "@php -r \"copy('.env.example','../../../.env');\"",
       "@php -r \"copy('migrate','../../../migrate');\""
     ]
