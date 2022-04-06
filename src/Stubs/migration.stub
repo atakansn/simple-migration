@@ -1,0 +1,24 @@
+<?php
+
+#Migration dosyası
+
+namespace SimpleMigration\Database\Migrations;
+
+use SimpleMigration\Migration;
+
+class $name extends Migration
+{
+    public function up()
+    {
+        $this->create('$tableName',[
+            $this->id(),
+            $this->timestamp()
+        ]);
+    }
+
+    public function down()
+    {
+        $this->drop('$tableName');
+    }
+
+}

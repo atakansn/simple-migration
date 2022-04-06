@@ -1,0 +1,24 @@
+{
+  "name": "migration/app",
+  "description": "Simple Migration Application",
+  "type": "simple",
+  "require": {
+    "vlucas/phpdotenv": "^5.4",
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "SimpleMigration\\": "src/",
+      "SimpleMigration\\Database\\Migrations\\": "Database/Migrations/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Atakan Senturk",
+      "email": "atkansenturk@gmail.com"
+    }
+  ]
+}

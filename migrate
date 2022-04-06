@@ -1,0 +1,13 @@
+#!usr/bin/php
+<?php
+
+use Dotenv\Dotenv;
+use SimpleMigration\Application;
+use SimpleMigration\Database\Connection;
+
+require __DIR__ . '/vendor/autoload.php';
+
+Dotenv::createImmutable(__DIR__)->load();
+
+$app = new Application(new Connection(),$argv);
+$app->run();
