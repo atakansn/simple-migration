@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "post-install-cmd": [
+    "post-create-project-cmd": [
       "@php -r \"copy('.env.example','../../../.env');\"",
       "@php -r \"copy('migrate','../../../migrate');\""
     ]
