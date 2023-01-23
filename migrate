@@ -1,13 +1,14 @@
 #!usr/bin/php
 <?php
 
-use Dotenv\Dotenv;
 use SimpleMigration\Application;
 use SimpleMigration\Database\Connection;
 
 require __DIR__ . '/vendor/autoload.php';
 
-Dotenv::createImmutable(__DIR__)->load();
+$database = require __DIR__ . '/Database/database.php';
 
-$app = new Application(new Connection(),$argv);
+$connection = new Connection($database);
+
+$app = new Application($connection, $argv);
 $app->run();

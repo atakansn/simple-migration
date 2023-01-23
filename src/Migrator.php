@@ -7,7 +7,6 @@ use SimpleMigration\Helpers\ConsoleOutput;
 
 class Migrator
 {
-
     public $db;
 
     public function __construct(Connection $connection = null)
@@ -29,11 +28,8 @@ class Migrator
                 continue;
             }
 
-            require dirname(__DIR__) . '/Database/Migrations/' . $migration;
-            $classname = pathinfo($migration, PATHINFO_FILENAME);
-            $fullClassName = sprintf('%s\\%s', 'SimpleMigration\\Database\\Migrations', $classname);
-
-            (new $fullClassName())->up();
+            $class = require dirname(__DIR__) . '/Database/Migrations/' . $migration;
+            $class->up();
 
             echo ConsoleOutput::getInstance()->applyStyle(['light_cyan'], "Applied migration : {$migration}") . PHP_EOL;
 
@@ -83,16 +79,14 @@ class Migrator
 
     public function downMigrations()
     {
-        if($this->migrationsCount() === 0)
-        {
-            echo ConsoleOutput::getInstance()->applyStyle(['light_yellow'],'Migrations have already been removed');
+        if ($this->migrationsCount() === 0) {
+            echo ConsoleOutput::getInstance()->applyStyle(['light_yellow'], 'Migrations have already been removed');
         }
 
         foreach (glob(__DIR__ . '/../Database/Migrations/*.php') as $migrations) {
             $basename = basename($migrations, '.php');
-            $className = sprintf('%s\\%s', $this->findNamespace($migrations), $basename);
-            $migration = new $className();
-            $migration->down();
+            $class = require $migrations;
+            $class->down();
             echo ConsoleOutput::getInstance()->applyStyle(['light_magenta'], "Removed migration : {$basename}") . PHP_EOL;
         }
 

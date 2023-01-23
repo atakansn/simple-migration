@@ -1,20 +1,52 @@
 # Simple Migration Example
 
+An application for MySQL that can create database tables with the help of console in simple applications.
 
-### An application for MySQL that can create database tables with the help of console in simple applications.
+## Installion
 
-### Installation
-#### `composer require migration/app`
+```bash
+  composer require migration/app
+```
+
+Create migrate.php file.
+
+Paste the following codes into the migrate file.
+
+````php
+#!usr/bin/php
+<?php
+
+use SimpleMigration\Application;
+use SimpleMigration\Database\Connection;
+
+require __DIR__ . '/vendor/autoload.php';
+
+$database = require __DIR__ . '/Database/database.php';
+
+$connection = new Connection($database);
+
+$app = new Application($connection, $argv);
+$app->run();
+
+````
 
 
+Edit the database.php file according to your mysql database.
 
-#### Edit ENV
+````php
+<?php
 
-- DB_HOST
-- DB_NAME
-- DB_USER
-- DB_PASSWORD
-- DB_PORT
+return [
+    'connection' => 'mysql',
+    'host' => 'localhost',
+    'database' => 'migration_exam',
+    'user' => 'root',
+    'password' => 'root',
+    'port' => 3306,
+];
+````
+
+### Command descriptions
 
 | Command | Description  |
 | ------------- | ------------------------------ |
@@ -23,20 +55,30 @@
 | `php migrate down`   | Deletes inserted databases  |
 
 
+
+## Screenshots
+
 > ### php migrate
+
 
 ![Migrate](https://i.ibb.co/n8Lgv6s/migrate.png)
 
+
 > ### php migrate create <migration name>
 
+
 ![Create](https://i.ibb.co/28pydQd/create2.png)
-  
+
+
 > ### php migrate down
+
 
 ![Down](https://i.ibb.co/XXyv8JK/down.png)
 
 
- #### Displays a warning if the migration name is left break.
-  
- ![Empty](https://i.ibb.co/ZSmdDfy/empty.png)
-  
+
+#### Displays a warning if the migration name is left break.
+
+
+![Empty](https://i.ibb.co/ZSmdDfy/empty.png)
+

@@ -8,7 +8,6 @@ use SimpleMigration\Helpers\FileSystem;
 
 class MigrationCreator
 {
-
     private const STUB_PATH = __DIR__ . '/Stubs';
 
     private object $fileSystem;
@@ -21,21 +20,21 @@ class MigrationCreator
         $this->migrationPath = $path;
     }
 
-    public function create(string $name, string $path=null)
+    public function create(string $name, string $path = null)
     {
-        $fileName = $this->getPathWithFilename($name,$path);
+        $fileName = $this->getPathWithFilename($name, $path);
 
         $this->fileSystem->directoryExists($path);
 
-        $this->migrationExist($name,$fileName);
+        $this->migrationExist($name, $fileName);
 
-        $this->populateStub($this->getStub(),$fileName,$name,$fileName);
+        $this->populateStub($this->getStub(), $fileName, $name, $fileName);
 
     }
 
     public function getStub()
     {
-        $this->fileSystem->exists($stub = self::STUB_PATH.'/migration.stub');
+        $this->fileSystem->exists($stub = self::STUB_PATH . '/migration.stub');
         return $this->fileSystem->get($stub);
     }
 
@@ -52,25 +51,24 @@ class MigrationCreator
     private function populateStub(string $stubs, ?string $path, string $table, string $className)
     {
         $stubs = str_replace(
-            ['$name','$tableName'],
-            [$this->fileSystem->basename($className,'.php'),$table],
+            ['$name', '$tableName'],
+            [$this->fileSystem->basename($className, '.php'), $table],
             $stubs);
-        $this->fileSystem->put($path,$stubs);
-       echo (new ConsoleOutput())->applyStyle(['light_green'],"Migration Created : ".basename($className));
+        $this->fileSystem->put($path, $stubs);
+        echo (new ConsoleOutput())->applyStyle(['light_green'], "Migration Created : " . basename($className));
     }
 
     private function migrationExist(string $name, string $file)
     {
-        if (empty($name))
-        {
-            echo (new ConsoleOutput())->applyStyle(['light_yellow'],"Warning : Please specify the file name.");
+        if (empty($name)) {
+            echo (new ConsoleOutput())->applyStyle(['light_yellow'], "Warning : Please specify the file name.");
             die;
         }
 
-        $className = basename($file,'.php');
-        if(file_exists($file))
-        {
-            echo (new ConsoleOutput())->applyStyle(['red'],"A {$className} class already exists.");
+        $className = basename($file, '.php');
+
+        if (file_exists($file)) {
+            echo (new ConsoleOutput())->applyStyle(['red'], "A {$className} class already exists.");
             die;
         }
 

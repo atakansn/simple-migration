@@ -15,7 +15,9 @@ abstract class Migration
 
     public function __construct()
     {
-        $this->db = new Connection();
+        $database = require __DIR__ . '/../Database/database.php';
+
+        $this->db = new Connection($database);
     }
 
     public function getConnection()
@@ -23,14 +25,14 @@ abstract class Migration
         return $this->db->getPdo();
     }
 
-    public function create(string $tableName, array $columns)
+    public function schemaCreate(string $tableName, array $columns)
     {
         $column = implode(', ', $columns);
         $sql = "CREATE TABLE {$tableName} ({$column})";
         try {
             $this->getConnection()->exec($sql);
         } catch (\Exception $exception) {
-            echo ConsoleOutput::getInstance()->applyStyle('red',$exception->getMessage()).PHP_EOL;
+            echo ConsoleOutput::getInstance()->applyStyle('red', $exception->getMessage()) . PHP_EOL;
             exit;
         }
     }
@@ -41,11 +43,10 @@ abstract class Migration
             $this->getConnection()->exec("TRUNCATE migrations");
             return $this->getConnection()->exec("DROP TABLE {$tableName}");
         } catch (\Exception $e) {
-            (new ConsoleOutput())->applyStyle(['red'], $e->getMessage()).PHP_EOL;
+            (new ConsoleOutput())->applyStyle(['red'], $e->getMessage()) . PHP_EOL;
             exit;
         }
     }
-
 
     public function id(string $column = "id", int $length = 11)
     {
@@ -66,5 +67,4 @@ abstract class Migration
     {
         return "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
     }
-
 }

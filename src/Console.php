@@ -4,7 +4,6 @@ namespace SimpleMigration;
 
 class Console
 {
-
     private array $args = [];
 
     private array $commandFiles = [];
@@ -22,10 +21,9 @@ class Console
 
     private function parseCommand(array $commands)
     {
-        $this->setArgs(array_slice($commands,1));
+        $this->setArgs(array_slice($commands, 1));
 
-        if(count($this->getArgs()) < 1)
-        {
+        if (count($this->getArgs()) < 1) {
             $this->migrate->applyMigrations();
             exit;
         }
@@ -36,10 +34,8 @@ class Console
 
     public function start()
     {
-        if ($this->commandExists())
-        {
-            if(class_exists($this->commandFiles[$this->getCommand()]))
-            {
+        if ($this->commandExists()) {
+            if (class_exists($this->commandFiles[$this->getCommand()])) {
                 (new $this->commandFiles[$this->getCommand()]($this->getArgs()))->handle();
             }
         }
@@ -58,10 +54,10 @@ class Console
             $this->commandFiles[$command] = $fullClassName;
         }
 
-         return $this->commandFiles;
+        return $this->commandFiles;
     }
 
-    public function matchNamespace(string $name) : array
+    public function matchNamespace(string $name): array
     {
         $namespaceLine = preg_grep('/^namespace /', file($name));
         $namespace = trim(array_shift($namespaceLine));
@@ -70,9 +66,9 @@ class Console
         return $match;
     }
 
-    public function commandExists() : bool
+    public function commandExists(): bool
     {
-        return array_key_exists($this->getCommand(),$this->commands());
+        return array_key_exists($this->getCommand(), $this->commands());
     }
 
     /**
@@ -114,8 +110,6 @@ class Console
     {
         return $this->commandFiles;
     }
-
-
 
 
 }

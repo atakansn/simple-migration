@@ -7,10 +7,10 @@ use SimpleMigration\Migrator;
 
 class DownCommand
 {
-
     public function handle()
     {
-        $migration = new Migrator(new Connection());
+        $database = require __DIR__ . '/../../Database/database.php';
+        $migration = new Migrator(new Connection($database));
         $migration->downMigrations();
     }
 }

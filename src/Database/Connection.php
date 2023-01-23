@@ -6,27 +6,36 @@ use Dotenv\Dotenv;
 
 class Connection
 {
-    private \PDO $Pdo;
+    private \PDO $pdo;
 
-    public function __construct()
+    public function __construct(array $values)
     {
-        try {
-            $this->createPdoConnection($_ENV['DB_TYPE'].':host='.$_ENV['DB_HOST'].';dbname='.$_ENV['DB_NAME'],$_ENV['DB_USER'],$_ENV['DB_PASSWORD']);
+        [$user, $password] = [
+            $values['user'] ?? null,
+            $values['password'] ?? null
+        ];
 
-        }catch (\Exception $exception)
-        {
+        $dsn = "mysql:host={$values['host']};dbname={$values['database']}";
+
+        if (array_key_exists('port', $values)) {
+            $dsn = "mysql:host={$values['host']};port={$values['port']};dbname={$values['database']}";
+        }
+
+        try {
+            $this->createPdoConnection($dsn, $user, $password);
+
+        } catch (\Exception $exception) {
             echo $exception->getMessage();
         }
     }
 
-    private function createPdoConnection($dsn,$username,$password)
+    private function createPdoConnection($dsn, $username, $password)
     {
-        $this->Pdo = new \PDO($dsn,$username,$password);
+        $this->pdo = new \PDO($dsn, $username, $password);
     }
 
     public function getPdo()
     {
-        return $this->Pdo;
+        return $this->pdo;
     }
-
 }

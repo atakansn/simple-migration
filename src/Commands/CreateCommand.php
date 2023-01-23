@@ -18,12 +18,12 @@ class CreateCommand
     {
         $this->fileName = $args[1] ?? "";
 
-        $this->creator = new MigrationCreator(new FileSystem(),self::MIGRATION_PATH);
+        $this->creator = new MigrationCreator(new FileSystem(), self::MIGRATION_PATH);
     }
 
     public function handle()
     {
-        $this->creator->create($this->fileName,self::MIGRATION_PATH);
+        $this->creator->create($this->fileName, self::MIGRATION_PATH);
     }
 
 }

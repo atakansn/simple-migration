@@ -1,16 +1,11 @@
 <?php
 
-#Migration dosyası
-
-namespace SimpleMigration\Database\Migrations;
-
 use SimpleMigration\Migration;
 
-class category_2022_04_05 extends Migration
-{
+return new class extends Migration {
     public function up()
     {
-        $this->create('category',[
+        $this->schemaCreate('category', [
             $this->id(),
             $this->timestamp()
         ]);
@@ -20,5 +15,4 @@ class category_2022_04_05 extends Migration
     {
         $this->drop('category');
     }
-
-}
+};
